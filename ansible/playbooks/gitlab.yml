@@ -1,0 +1,8 @@
+---
+- name: gitlab
+  hosts: gitlab
+  become: True
+  gather_facts: True
+  roles:
+    - roles/gitlab-omnibus
+    

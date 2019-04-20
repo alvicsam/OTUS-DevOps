@@ -1,0 +1,22 @@
+---
+- name: user
+  hosts: gitlab-runners
+  tags: gitlab-runners
+  become: True
+  gather_facts: True
+  roles:
+    - roles/ansible-gitlab-runner
+  tasks:
+    - name: Installing packages
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - python-pip
+        - python3-pip
+    - name: Adding gitlab-runner to docker group
+      user:
+        name: gitlab-runner
+        groups: docker
+        append: yes 
+       

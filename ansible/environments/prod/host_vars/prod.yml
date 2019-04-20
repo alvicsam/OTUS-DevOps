@@ -1,0 +1,6 @@
+---
+gitlab_runner_runners:
+  - name: 'Prod GitLab Runner'
+    executor: shell
+    tags:
+      - prod

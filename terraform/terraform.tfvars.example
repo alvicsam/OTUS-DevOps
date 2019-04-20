@@ -1,0 +1,9 @@
+project = "infra-00000"
+private_key_path = "~/.ssh/appuser"
+public_key_path = "~/.ssh/appuser.pub"
+zone = "europe-west1-b"
+disk_image = "crawler-base"
+gitlab_vm_name = "gitlab"
+prod_vm_name = "prod"
+dev_vm_name = "dev"
+ip_range = ["my ip"]

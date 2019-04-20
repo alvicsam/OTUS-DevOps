@@ -1,0 +1,4 @@
+---
+# defaults file for gitlab-omnibus
+gitlab_password: "12345678a"
+

@@ -1,0 +1,7 @@
+---
+# handlers file for gitlab-omnibus
+
+- name: docker-compose up
+  shell: cd /srv/gitlab/ && docker-compose up -d
+  tags:
+    - gitlab.omnibus 

@@ -1,0 +1,72 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - db:/data/db
+    networks:
+      crawler:
+        aliases:
+          - ui_db
+          - crawler_db
+    ports:
+      - '27017:27017'
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit"
+#    environment:
+#      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+#      RABBITMQ_DEFAULT_USER: "rabbitmq"
+#      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+#      RABBITMQ_DEFAULT_VHOST: "/"
+    volumes:
+      - ./rabbit/data:/var/lib/rabbitmq:rw
+      - ./rabbit/definitions.json:/opt/definitions.json:ro
+      - ./rabbit/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
+    networks:
+      crawler:
+        aliases:
+          - crawler_rabbit
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "15671:15671"
+      - "15672:15672"
+    labels:
+      NAME: "rabbitmq"
+  crawler-ui:
+    build:
+      context: ./search_engine_ui
+    image: crawler-ui:2.3
+    hostname: "crawler_ui"
+    networks:
+      crawler:
+        aliases:
+          - crawler_ui
+    ports:
+      - '8000:8000'
+  crawler-app:
+    build:
+      context: ./search_engine_crawler
+    image: crawler-app:1.1
+    hostname: "crawler_app"
+    depends_on:
+      - rabbit
+      - mongo
+    networks:
+      crawler:
+        aliases:
+          - crawler_app
+    environment:
+#      EXCLUDE_URLS: "https://forum.say7.info"
+      URL: "https://samusev.info"
+    ports:
+      - '8001:8000'
+
+volumes:
+  db:
+
+networks:
+  crawler:

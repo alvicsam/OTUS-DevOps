@@ -1,0 +1,27 @@
+---
+- name: Install docker-ce (Ubuntu)
+  include: install-Ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Enable Docker CE service on startup
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Checking if docker-compose is installed
+  stat:
+    path: /usr/local/bin/docker-compose
+  register: compose_result
+
+- name: Installing docker-compose
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  when: compose_result.stat.exists == False
+
+- name: Installing docker-compose
+  file:
+    path: /usr/local/bin/docker-compose
+    owner: root
+    group: root
+    mode: 0755
+  when: compose_result.stat.exists == False

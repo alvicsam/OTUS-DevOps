@@ -1,0 +1,11 @@
+FROM ubuntu:16.04
+
+WORKDIR /crawler-ui
+COPY . /crawler-ui
+RUN apt-get update && apt-get install -y python-pip gunicorn
+RUN pip install -r requirements.txt
+ENV FLASK_APP ui.py
+ENV MONGO ui_db
+ENV MONGO_PORT 27017
+WORKDIR /crawler-ui/ui
+ENTRYPOINT ["gunicorn","ui:app","-b","0.0.0.0"]

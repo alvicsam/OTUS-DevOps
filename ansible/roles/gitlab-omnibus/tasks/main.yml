@@ -1,0 +1,51 @@
+---
+# tasks file for gitlab-omnibus
+- name: Checking if docker-compose is installed
+  stat:
+    path: /usr/local/bin/docker-compose
+  register: compose_result
+  tags:
+    - gitlab.omnibus
+
+- name: Installing docker-compose
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  when: compose_result.stat.exists == False 
+  tags:
+    - gitlab.omnibus  
+
+- name: Installing docker-compose
+  file:
+    path: /usr/local/bin/docker-compose
+    owner: root
+    group: root
+    mode: 0755
+  when: compose_result.stat.exists == False 
+  tags:
+    - gitlab.omnibus
+
+- name: Creating bunch of folders
+  file: 
+    path: "{{ item }}"
+    state: directory
+    mode: 0775
+  loop:
+    - /srv/gitlab/config 
+    - /srv/gitlab/data 
+    - /srv/gitlab/logs
+  tags:
+    - gitlab.omnibus
+
+- name: Putting docker-compose to the right place
+  template:
+    src: docker-compose.yml.j2
+    dest: /srv/gitlab/docker-compose.yml
+  notify: docker-compose up
+  tags:
+    - gitlab.omnibus    
+
+- name: Next steps
+  debug:
+    msg: "Now please visit http://{{ ansible_host }} and create the user token. After that run step2.sh according to the README.md"
+  tags:
+    - gitlab.omnibus
+

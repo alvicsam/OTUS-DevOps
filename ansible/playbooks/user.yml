@@ -1,0 +1,12 @@
+---
+- name: user
+  hosts: all
+  tags: user
+  become: True
+  gather_facts: True
+  tasks:
+    - name: Adding appuser to docker group
+      user:
+        name: appuser
+        groups: docker
+        append: yes
