@@ -13,7 +13,7 @@ Host *
 6. Переименовать terraform/terraform.tfvars.example в terraform/terraform.tfvars, прописать название проекта gcp (переменная `project`), свой ip (переменная `ip_range`)  
 7. Переименовать packer/variables.json.example в packer/variables.json, прописать название проекта gcp (переменная `project_id`)  
 8. Запустить step1.sh в формате: `step1.sh <gcp-project-name>`
-9. Подождать примерно 3-4 минуты, пока запустится gitlab  
+9. Подождать примерно 10 минут, пока запустится gitlab  
 10. Зайти в гитлаб под пользователем root и паролем из пункта 5, создать токен для пользователя  
 11. Запустить step2.sh в формате: `step2.sh <gitlab-token> <gitlab password>`  
 12. Зайти в проект crawler, найти registration token для runner'ов  
@@ -56,5 +56,5 @@ step3.sh
 
 ### Полезная инфа для себя 
 
-rabbitmq create queue on container start https://medium.com/@thomasdecaux/deploy-rabbitmq-with-docker-static-configuration-23ad39cdbf39 
+rabbitmq create queue on container start https://medium.com/@thomasdecaux/deploy-rabbitmq-with-docker-static-configuration-23ad39cdbf39  
 Создать очередь в контейнере: `curl -i -u rabbitmq:rabbitmq -H "content-type:application/json" -XPUT -d'{"durable":false}' http://127.0.0.1:15672/api/queues/%2f/rabbitmq`
