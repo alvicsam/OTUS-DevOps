@@ -16,7 +16,7 @@ Host *
 8. Переименовать terraform/terraform.tfvars.example в terraform/terraform.tfvars, прописать название проекта gcp (переменная `project`), свой ip (переменная `ip_range`)  
 9. Переименовать packer/variables.json.example в packer/variables.json, прописать название проекта gcp (переменная `project_id`)  
 10. Запустить step1.sh в формате: `step1.sh <gcp-project-name>`
-11. Подождать примерно 3-4 минуты, пока запустится gitlab  
+11. Подождать примерно 10 минут, пока запустится gitlab  
 12. Зайти в гитлаб под пользователем root и паролем из пункта 5, создать токен для пользователя со всему правами (http://`terraform output gitlab_external_ip`/profile/personal_access_tokens)  
 13. Запустить step2.sh в формате: `step2.sh <gitlab-token> <gitlab password>`  
 14. Зайти в проект crawler, найти registration token для runner'ов (http://`terraform output gitlab_external_ip`/root/crawler/settings/ci_cd -> runners -> expand)  
