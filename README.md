@@ -23,7 +23,7 @@ Host *
 15. Запустить step3.sh в формате: `step3.sh <gitlab-registration-token> <docker-hub-login>`  
 
 На этом этапе можно зайти в pipeline и убедиться, что прошла сборка образов, они залились на docker hub, отработали тесты, а также проект залился на dev-сервер.  
-Можно зайти на него по адресу http://`terraform output dev_external_ip`:8000 и сделать поиск по слову page1.  
+Можно зайти на него по адресу http://`terraform output dev_external_ip`:8000 и сделать поиск по слову page1  
 
 После чего можно запустить деплой на прод, убедиться, что он выполнился, зайти на http://`terraform output prod_external_ip`:8000 и сделать поиск по слову page1.
 
@@ -62,5 +62,5 @@ step3.sh
 
 ### Полезная инфа для себя 
 
-rabbitmq create queue on container start https://medium.com/@thomasdecaux/deploy-rabbitmq-with-docker-static-configuration-23ad39cdbf39 
+rabbitmq create queue on container start https://medium.com/@thomasdecaux/deploy-rabbitmq-with-docker-static-configuration-23ad39cdbf39  
 Создать очередь в контейнере: `curl -i -u rabbitmq:rabbitmq -H "content-type:application/json" -XPUT -d'{"durable":false}' http://127.0.0.1:15672/api/queues/%2f/rabbitmq`
