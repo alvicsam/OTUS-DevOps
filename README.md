@@ -9,7 +9,7 @@ Host *
 ```
 4. Придумать пароль для ansible-vault и положить его в ~/.vault.key
 5. Сгенерировать приватный ключ appuser и публичный ключ appuser.pub, положить их к себе в ~/.ssh/  
-6. Сгенерировать пароль для gitlab и положить его в ansible/environments/prod/host_vars/gitlab.yml (пароль по умолчанию 123qweasd):
+6. Сгенерировать пароль для gitlab и положить его в ansible/environments/prod/host_vars/gitlab.yml (пароль по умолчанию 123qweasd): 
 `ansible-vault encrypt_string "der-parol" --name "gitlab_password" --vault-password-file ~/.vault.key`
 7. Настроить файл ansible/secrets.yml.example (прописать логин и пароль от dockerhub), переименовать его в secrets.yml и зашифровать ansible-vault:  
 `ansible-vault encrypt ansible/secrets.yml --vault-password-file ~/.vault.key`
