@@ -1,0 +1,19 @@
+---
+- name: docker-login
+  hosts: dev
+  tags: docker-login
+  become: True
+  become_user: gitlab-runner
+  gather_facts: True
+  vars_files:
+    - ../secrets.yml
+  tasks:
+    - name: pip install docker
+      pip:
+        name: docker
+    - name: Log into DockerHub
+      docker_login:
+        username: "{{ docker_hub_user }}"
+        password: "{{ docker_hub_password }}"
+
+

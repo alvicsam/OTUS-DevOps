@@ -9,9 +9,11 @@ build_job:
   tags: 
     - dev
   script:
-    - pwd
-    - ls -la
     - echo 'Building'
+    - docker build -t $DOCKERHUBUSER/crawler-ui:latest ./search_engine_ui
+    - docker build -t $DOCKERHUBUSER/crawler-app:latest ./search_engine_crawler
+    - docker push $DOCKERHUBUSER/crawler-ui:latest
+    - docker push $DOCKERHUBUSER/crawler-app:latest
 
 test_app:
   stage: test
@@ -49,4 +51,3 @@ deploy_prod:
     - prod
   script:
     - docker-compose up -d
-

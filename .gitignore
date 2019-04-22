@@ -11,3 +11,5 @@ packer/variables.json
 .cache
 .pytest_cache
 temp/
+TODO
+secrets.yml

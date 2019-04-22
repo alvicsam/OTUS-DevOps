@@ -23,5 +23,5 @@ module "gitlab-runners" {
 
 module "vpc" {
   source        = "modules/vpc"
-  source_ranges = ["77.51.13.118/32"]
+  source_ranges = "${var.ip_range}"
 }

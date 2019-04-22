@@ -15,11 +15,6 @@ services:
   rabbit:
     image: "rabbitmq:3-management"
     hostname: "rabbit"
-#    environment:
-#      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-#      RABBITMQ_DEFAULT_USER: "rabbitmq"
-#      RABBITMQ_DEFAULT_PASS: "rabbitmq"
-#      RABBITMQ_DEFAULT_VHOST: "/"
     volumes:
       - ./rabbit/data:/var/lib/rabbitmq:rw
       - ./rabbit/definitions.json:/opt/definitions.json:ro
@@ -37,9 +32,7 @@ services:
     labels:
       NAME: "rabbitmq"
   crawler-ui:
-    build:
-      context: ./search_engine_ui
-    image: crawler-ui:2.3
+    image: ${DOCKERHUBUSER}/crawler-ui:latest
     hostname: "crawler_ui"
     networks:
       crawler:
@@ -48,9 +41,7 @@ services:
     ports:
       - '8000:8000'
   crawler-app:
-    build:
-      context: ./search_engine_crawler
-    image: crawler-app:1.1
+    image: ${DOCKERHUBUSER}/crawler-app:latest
     hostname: "crawler_app"
     depends_on:
       - rabbit
@@ -60,7 +51,7 @@ services:
         aliases:
           - crawler_app
     environment:
-#      EXCLUDE_URLS: "https://forum.say7.info"
+      #EXCLUDE_URLS: "https://forum.samusev.info"
       URL: "https://samusev.info"
     ports:
       - '8001:8000'

@@ -19,7 +19,6 @@ mv -f search_engine_ui/ crawler/
 cd crawler/
 cp ../../files/Dockerfile-app search_engine_crawler/Dockerfile
 cp ../../files/Dockerfile-ui search_engine_ui/Dockerfile
-cp ../../files/docker-compose-apps.yml docker-compose.yml
 mkdir rabbit
 mkdir rabbit/data
 cp ../../files/definitions.json rabbit/definitions.json

@@ -41,6 +41,6 @@ variable disk_image {
 }
 
 variable ip_range {
-  description = "ip accedd range"
+  description = "ip access range"
   default     = ["0.0.0.0/0"]
 }
